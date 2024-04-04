@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import readline from 'readline'
 import { promisify } from 'util'
-import { ConverterAdapter } from './adapters/ConverterAdapter'
+import { LengthAdapter } from './adapters/LengthAdapter'
+import { WeightAdapter } from './adapters/WeightAdapter'
 
 const reader = readline.createInterface({
     input: process.stdin,
@@ -16,11 +17,10 @@ async function getUserInput (prompt: string): Promise<any> {
 
 
 async function startConverter () {
-    const adapter = new ConverterAdapter();
 
     console.log("Conversor de medidas. Escolha uma opcao:")
 
-    const userChoise = await getUserInput('0 - Sair\n1 - Comprimento\n2 - Peso\n3 - Volume\n4 - Velocidade\n')
+    const userChoise = await getUserInput('0 - Sair\n1 - Comprimento\n2 - Peso\nResposta: ')
 
     switch (userChoise) {
     case '0':
@@ -28,23 +28,46 @@ async function startConverter () {
         return
 
     case '1':
-        var value = await adapter.convert_length(7, "cm", "mm")
-        console.log(value)
+        const lengthAdapter = new LengthAdapter
+
+        console.log("Essas sao as unidades de medida possiveis:")
+
+        const lengthOptions = lengthAdapter.getOptions()
+
+        lengthOptions.forEach(unit => console.log("- " + unit));
+
+        const lengthUnit = await getUserInput("Qual unidade de medida?\nResposta: ")
+        const lengthValue = await getUserInput("Qual valor?\nResposta: ")
+
+        lengthAdapter.create(lengthValue, lengthUnit)
+
+        const newLengthUnit = await getUserInput("Para qual unidade converter?\nResposta: ")
+
+        lengthAdapter.convert(newLengthUnit)
+
+        console.log(lengthAdapter.see())
         reader.close()
         return
 
     case '2':
-        await adapter.convert_length(7, "cm", "mm")
-        reader.close()
-        return
+        const weightAdapter = new WeightAdapter
 
-    case '3':
-        await adapter.convert_length(7, "cm", "mm")
-        reader.close()
-        return
+        console.log("Essas sao as unidades de medida possiveis:")
 
-    case '4':
-        await adapter.convert_length(7, "cm", "mm")
+        const weightOptions = weightAdapter.getOptions()
+
+        weightOptions.forEach(unit => console.log("- " + unit));
+
+        const weightUnit = await getUserInput("Qual unidade de medida?\nResposta: ")
+        const weightValue = await getUserInput("Qual valor?\nResposta: ")
+
+        weightAdapter.create(weightValue, weightUnit)
+
+        const newWeightUnit = await getUserInput("Para qual unidade converter?\nResposta: ")
+
+        weightAdapter.convert(newWeightUnit)
+
+        console.log(weightAdapter.see())
         reader.close()
         return
 
