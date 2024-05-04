@@ -56,7 +56,6 @@ export class LengthAdapter {
             "mi": 1
         }
     };
-    
 
     convert(newUnit: string) {
         if (!this.conversionData[newUnit]) {
@@ -67,34 +66,34 @@ export class LengthAdapter {
             throw new Error("Conversão de " + this.length.unit + " para " + newUnit + " não suportada");
         }
 
-        this.length.value = this.length.value * this.conversionData[this.length.unit][newUnit]
-
-        this.length.unit = newUnit
+        const conversionRate = this.conversionData[this.length.unit][newUnit];
+        this.length.value = this.length.value * conversionRate;
+        this.length.unit = newUnit;
     }
 
     update(newValue: number) {
-        this.length.value = newValue
+        this.length.value = newValue;
     }
 
     create(value: number, unit: string) {
         if (!this.conversionData[unit]) {
             throw new Error("Unidade de medida '" + unit + "' não suportada");
         }
-        this.length.value = value
-        this.length.unit = unit
+        this.length = {
+            value: value,
+            unit: unit
+        };
     }
 
     getOptions() {
-        const lengthAdapter = new LengthAdapter();
-        const supportedUnits = Object.keys(lengthAdapter.conversionData);
-    
-        return supportedUnits
+        const supportedUnits = Object.keys(this.conversionData);
+        return supportedUnits;
     }
 
     see() {
-        let result = ""
-        result += this.length.value + " "
-        result + this.length.unit
-        return result
+        let result = "";
+        result += this.length.value + " ";
+        result += this.length.unit;
+        return result;
     }
 }
