@@ -15,12 +15,11 @@ async function getUserInput (prompt: string): Promise<any> {
     return await userInput(prompt)
 }
 
-
 async function startConverter () {
 
     console.log("Conversor de medidas. Escolha uma opcao:")
 
-    const userChoise = await getUserInput('0 - Sair\n1 - Comprimento\n2 - Peso\nResposta: ')
+    const userChoise = await getUserInput('\n0 - Sair\n1 - Comprimento\n2 - Peso\nResposta: ')
 
     switch (userChoise) {
     case '0':
@@ -30,18 +29,18 @@ async function startConverter () {
     case '1':
         const lengthAdapter = new LengthAdapter
 
-        console.log("Essas sao as unidades de medida possiveis:")
+        console.log("\nEssas sao as unidades de medida possiveis:")
 
         const lengthOptions = lengthAdapter.getOptions()
 
         lengthOptions.forEach(unit => console.log("- " + unit));
 
-        const lengthUnit = await getUserInput("Qual unidade de medida?\nResposta: ")
-        const lengthValue = await getUserInput("Qual valor?\nResposta: ")
+        const lengthUnit = await getUserInput("\nQual unidade de medida?\nResposta: ")
+        const lengthValue = await getUserInput("\nQual valor?\nResposta: ")
 
         lengthAdapter.create(lengthValue, lengthUnit)
 
-        const newLengthUnit = await getUserInput("Para qual unidade converter?\nResposta: ")
+        const newLengthUnit = await getUserInput("\nPara qual unidade converter?\nResposta: ")
 
         lengthAdapter.convert(newLengthUnit)
 
@@ -52,18 +51,18 @@ async function startConverter () {
     case '2':
         const weightAdapter = new WeightAdapter
 
-        console.log("Essas sao as unidades de medida possiveis:")
+        console.log("\nEssas sao as unidades de medida possiveis:")
 
         const weightOptions = weightAdapter.getOptions()
 
         weightOptions.forEach(unit => console.log("- " + unit));
 
-        const weightUnit = await getUserInput("Qual unidade de medida?\nResposta: ")
-        const weightValue = await getUserInput("Qual valor?\nResposta: ")
+        const weightUnit = await getUserInput("\nQual unidade de medida?\nResposta: ")
+        const weightValue = await getUserInput("\nQual valor?\nResposta: ")
 
         weightAdapter.create(weightValue, weightUnit)
 
-        const newWeightUnit = await getUserInput("Para qual unidade converter?\nResposta: ")
+        const newWeightUnit = await getUserInput("\nPara qual unidade converter?\nResposta: ")
 
         weightAdapter.convert(newWeightUnit)
 
