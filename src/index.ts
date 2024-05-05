@@ -21,6 +21,7 @@ async function startConverter () {
     const userChoise = await getUserInput('\n1 - Comprimento\n2 - Peso\n0 - Sair\nResposta: ')
 
     switch (userChoise) {
+
     case '0':
         reader.close()
         return
@@ -32,7 +33,7 @@ async function startConverter () {
 
         const lengthOptions = lengthAdapter.getOptions()
 
-        lengthOptions.forEach(unit => console.log("- " + unit));
+        lengthOptions.forEach(unit => console.log("-> " + unit));
 
         const lengthUnit = await getUserInput("\nQual unidade de medida?\nResposta: ")
         const lengthValue = await getUserInput("\nQual valor?\nResposta: ")
@@ -54,7 +55,7 @@ async function startConverter () {
 
         const weightOptions = weightAdapter.getOptions()
 
-        weightOptions.forEach(unit => console.log("- " + unit));
+        weightOptions.forEach(unit => console.log("-> " + unit));
 
         const weightUnit = await getUserInput("\nQual unidade de medida?\nResposta: ")
         const weightValue = await getUserInput("\nQual valor?\nResposta: ")
