@@ -28,6 +28,14 @@ describe('WeightAdapter', () => {
 
       expect(weightAdapter.see()).toBe('10 g');
     });
+
+    test('should throw an error for an invalid unit', () => {
+      const weightAdapter = new WeightAdapter();
+
+      expect(() => {
+        weightAdapter.create(10, 'invalid_unit');
+      }).toThrowError("Unidade de medida 'invalid_unit' não suportada");
+    });
   });
 
   describe('Testing mock of getOptions', () => {
