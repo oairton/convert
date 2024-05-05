@@ -16,6 +16,8 @@
     "start": "ts-node src/index.ts",
     "start:prod": "npm run build && node dist/index.js",
     "build": "tsc",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test:unit": "jest",
+    "test:unit:report": "jest --collect-coverage"
   }
 }
