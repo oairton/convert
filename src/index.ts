@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import readline from 'readline'
 import { promisify } from 'util'
 import { LengthAdapter } from './adapters/LengthAdapter'
@@ -19,7 +18,7 @@ async function startConverter () {
 
     console.log("Conversor de medidas. Escolha uma opcao:")
 
-    const userChoise = await getUserInput('\n0 - Sair\n1 - Comprimento\n2 - Peso\nResposta: ')
+    const userChoise = await getUserInput('\n1 - Comprimento\n2 - Peso\n0 - Sair\nResposta: ')
 
     switch (userChoise) {
     case '0':
