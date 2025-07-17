@@ -10,7 +10,7 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: copier
-          image: busybox
+          image: alpine/git
           command: ["/bin/sh", "-c"]
           args:
             - |
