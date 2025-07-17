@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: copy-wordpress-content
+  namespace: devops-test
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: copier
+          image: busybox
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              echo "Copiando conteúdo do Git para PVC..."
+              echo $(ls /src)
+              echo $(ls /dest)
+              cp -rf /src/* /dest/
+              echo "Copiado!"
+          volumeMounts:
+            - name: repo
+              mountPath: /src
+            - name: pvc
+              mountPath: /dest
+      volumes:
+        - name: repo
+          projected:
+            sources:
+              - gitRepository:
+                  name: wineverso
+                  namespace: flux-system
+        - name: pvc
+          persistentVolumeClaim:
+            claimName: data-wineteste-0
