@@ -16,8 +16,12 @@ spec:
             - |
               echo "Clonando conteúdo do Git..."
               git clone --depth=1 https://github.com/oairton/convert.git /tmp/repo
+              echo "/dest:"
+              echo $(ls /dest)
               echo "Copiando para PVC..."
               cp -r /tmp/repo/* /dest/
+              echo "Conteúdo copiado:"
+              echo $(ls /dest)
               echo "Copiado!"
           volumeMounts:
             - name: pvc
