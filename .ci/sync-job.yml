@@ -13,23 +13,15 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - |
-              echo "Copiando conteúdo do Git para PVC..."
-              echo $(ls /src)
-              echo $(ls /dest)
-              cp -rf /src/* /dest/
+              echo "Clonando conteúdo do Git..."
+              git clone --depth=1 https://github.com/oairton/convert.git /tmp/repo
+              echo "Copiando para PVC..."
+              cp -r /tmp/repo/* /dest/
               echo "Copiado!"
           volumeMounts:
-            - name: repo
-              mountPath: /src
             - name: pvc
               mountPath: /dest
       volumes:
-        - name: repo
-          projected:
-            sources:
-              - gitRepository:
-                  name: wineverso
-                  namespace: flux-system
         - name: pvc
           persistentVolumeClaim:
             claimName: data-wineteste-0
